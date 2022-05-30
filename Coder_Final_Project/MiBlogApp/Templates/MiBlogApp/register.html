@@ -1,0 +1,20 @@
+{% extends "MiBlogApp/father.html" %}
+
+{% load static %}
+
+{% block contentToChange %}
+
+<form method="post">{% csrf_token %}
+
+    {{ formulario.as_p}}
+    <button type="submit">Submit user</button>
+
+</form>
+
+{% endblock %}
+
+{% block title %}
+
+    <h1 >Register New User</h1>
+
+{% endblock %}

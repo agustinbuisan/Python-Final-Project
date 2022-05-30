@@ -1,0 +1,22 @@
+{% extends "MiBlogApp/father.html" %}
+
+{% load static %}
+
+{% block contentToChange %}
+
+<form method="post">{% csrf_token %}
+
+    {{ formulario.as_p}}
+    <input type="submit" value="Log In">
+
+</form>
+
+<h2> {{message}} </h2>
+
+{% endblock %}
+
+{% block title %}
+
+<h1 > Log In! </h1>
+
+{% endblock %}
