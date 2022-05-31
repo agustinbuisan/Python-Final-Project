@@ -11,7 +11,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 def main(request):
-    return render(request, 'MiBlogApp/main.html')
+
+    avatar=Avatar.objects.filter(user=request.user)
+    return render(request, 'MiBlogApp/main.html' ,{'url': avatar[0].avatar.url})
 
 
 
