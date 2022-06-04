@@ -20,23 +20,28 @@
     </head>
     <body>
         <!-- Navigation-->
-        <nav class="navbar navbar-light bg-light static-top">
+        <nav class="navbar navbar-light static-top">
             <div class="container">
-                <h1> Agus Blog </h1>
-                <a class="navbar-brand" href="{% url 'home' %}"> Home </a>
-                <a class="btn btn-success" href="{% url 'about' %}">About</a>
-                <a class="btn btn-success" href="{% url 'view_pages' %}">Pages</a>
+
+                {% if not request.user.is_authenticated %}
+                <a class="navbar-brand" href="{% url 'main' %}"> <h1 class="text-center" style="color: #557b9c;"> PyCo B L O G </h1> </a>
+                {% else %}
+                <a class="navbar-brand" href="{% url 'home' %}"> <h1 class="text-center" style="color: #557b9c;"> PyCo B L O G </h1> </a>
+                {% endif %}
+
+                <a class="btn btn-light" href="{% url 'about' %}">About</a>
+                <a class="btn btn-light" href="{% url 'view_pages' %}">Pages</a>
 
                 {% if not request.user.is_authenticated %}
                 
-                <a class="btn btn-primary " href="{% url 'login' %}">Log In</a>
+                <a class="btn btn-secondary " href="{% url 'login' %}">Log In</a>
 
                 {% else %}
 
-                <a class="btn btn-success" href="">Message</a>
-                <a class="btn btn-success" href="{% url 'editProfile' %}">My Profile</a>
+                <a class="btn btn-light" href="">Message</a>
+                <a class="btn btn-light" href="{% url 'editProfile' %}">My Profile</a>
 
-                <p class="text-muted medium">Hello {{user}}!</p>
+                <p class="text-muted fs-4 mt-3 fw-bold ">Hello {{user}}!</p>
 
                 <a class="btn btn-danger" href="{% url 'logout' %}">Log Out</a>
 

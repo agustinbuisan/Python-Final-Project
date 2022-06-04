@@ -3,13 +3,16 @@
 {% load static %}
 
 {% block contentToChange %}
+<div class="d-flex align-items-center justify-content-center">
+    <form class="m-4" method="post">{% csrf_token %}
+       <p class="alert alert-danger" role="alert">
+        Are you sure you want to delete the following page: "{{ object }}"?
+       </p> 
+        <input class="btn btn-danger fst-italic btn-sm ml-5" type="submit" value="Yes">
+        <a class="btn btn-success fst-italic btn-sm m-2" href="{% url 'view_pages' %}"> No </a>
 
-<form method="post">{% csrf_token %}
-    Are you sure you want to delete the following page: "{{ object }}"?
-    <input type="submit" value="Yes">
-
-</form>
-
+    </form>
+</div>
 {% endblock %}
 
 {% block title %}

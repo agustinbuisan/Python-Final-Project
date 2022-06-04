@@ -4,30 +4,45 @@
 
 {% block contentToChange %}
 
-{% for page in object_list %}
+<div class="container m-4">
+    <div class="row"> 
+        <div class="col-9">
+            {% for page in object_list %}
 
-<li> {{page}} </li>
+            <li class="fs-5"> {{page}} </li>
 
-<button>
-    <a href="{% url 'detail_page' page.id %}">Detail</a>
-</button>
-<button>
-    <a href="{% url 'edit_page' page.id %}">Edit</a>
-</button>
-<button>
-    <a href="{% url 'delete_page' page.id %}">Delete</a>
-</button>
+            {% if not request.user.is_authenticated %}
 
-{% empty %}
+                {% else %}
+                    
+                        <a class="btn btn-light m-2 fst-italic btn-sm" href="{% url 'detail_page' page.id %}">Detail</a>
+                        <a class="btn btn-light m-2 fst-italic btn-sm" href="{% url 'edit_page' page.id %}">Edit</a>
+                        <a class="btn btn-danger m-2 fst-italic btn-sm" href="{% url 'delete_page' page.id %}">Delete</a>
+                    
+            {% endif %}
 
-<h1> There are 0 pages listed in the blog </h1>
+            {% empty %}
 
-{% endfor %}
+            <h1> There are 0 pages listed in the blog </h1>
 
-<a class="btn btn-success" href="{% url 'create_page' %}"> Create new page </a>
-
+            {% endfor %}
+        </div> 
+        <div class="col-3">
+            {% if not request.user.is_authenticated %}
+                <h4 class="alert alert-primary" role="alert"> Log in to view pages detail. </h4>
+                {% else %}
+        
+                <a class="btn btn-success mt-2" href="{% url 'create_page' %}"> Create new page </a>
+        
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
 
+
 {% block title %}
+
+<h1> Pages </h1>
 
 {% endblock %}

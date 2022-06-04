@@ -4,14 +4,14 @@
 
 {% block contentToChange %}
 
-<form method="post">{% csrf_token %}
+<div class="d-flex align-items-center justify-content-center">
+    <form class="m-4" method="post"> {% csrf_token %}
+        {{ formulario.as_p}}
+        <input class="btn btn-success fst-italic btn-sm" type="submit" value="Log In">
+    </form>
+</div>
 
-    {{ formulario.as_p}}
-    <input type="submit" value="Log In">
-
-</form>
-
-<h2> {{message}} </h2>
+<h5 class="alert alert-danger" role="alert"> {{message}} </h5>
 
 {% endblock %}
 

@@ -3,16 +3,18 @@
 {% load static %}
 
 {% block contentToChange %}
-
-<form method="post"> {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit">
-</form>
-
+<div class="d-flex align-items-center justify-content-center">
+    <form class="m-4" method="post"> {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-success fst-italic btn-sm" type="submit" value="Submit">
+        
+        <a class="btn btn-light m-2 fst-italic btn-sm" href="{% url 'view_pages' %}"> Go Back to pages list </a>
+    </form>
+</div>
 {% endblock %}
 
 {% block title %}
 
-<h1> Pages </h1>
+<h1> Create New Pages </h1>
 
 {% endblock %}

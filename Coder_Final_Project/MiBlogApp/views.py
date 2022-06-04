@@ -21,7 +21,7 @@ def main(request):
 
 def home(request):
     avatar=Avatar.objects.filter(user=request.user)
-    return render(request, 'MiBlogApp/index.html')
+    return render(request, 'MiBlogApp/index.html',{'message':f'Welcome {request.user}!', 'avatar':avatar})
     
 def about(request):
     return render(request, 'MiBlogApp/about.html')
@@ -93,12 +93,12 @@ class CreatePage(CreateView):
     success_url = reverse_lazy('view_pages')
 
 #View list of Pages
-class ViewPages(LoginRequiredMixin, ListView):
+class ViewPages(ListView):
     model = Pages
     template_name = 'MiBlogApp/view_pages.html'
 
 #View detail of Pages
-class DetailPage(LoginRequiredMixin, DetailView):
+class DetailPage(DetailView):
     model = Pages
     template_name = 'MiBlogApp/detail_page.html'
 
