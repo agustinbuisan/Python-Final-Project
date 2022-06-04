@@ -1,3 +1,4 @@
+from cmath import log
 from django.shortcuts import render
 from django import http
 from .models import *
@@ -10,12 +11,20 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
+from django.urls import reverse_lazy
+
+
 def main(request):
+    return render(request, 'MiBlogApp/father.html')
 
+def home(request):
     avatar=Avatar.objects.filter(user=request.user)
-    return render(request, 'MiBlogApp/main.html' ,{'url': avatar[0].avatar.url})
-
-
+    return render(request, 'MiBlogApp/index.html')
+    
+def about(request):
+    return render(request, 'MiBlogApp/about.html')
 
 # Register and Login/Logout Views ---------------------------------------------------------------
 
@@ -25,7 +34,7 @@ def register(request):
         if formulario.is_valid():
             username=formulario.cleaned_data['username']
             formulario.save()
-            return render(request, 'MiBlogApp/index.html', {'message':f'{username}. The user was successfully created!'})
+            return render(request, 'MiBlogApp/index.html', {'message':f'User {username} was successfully created! Log in now!'})
         else:
             return render(request, 'MiBlogApp/index.html', {'message':'User could not be created'})
     else:
@@ -42,7 +51,7 @@ def login_request(request):
 
             if user is not None:
                 login(request, user)
-                return render(request, 'MiBlogApp/index.html', {'user':user, 'message':'Welcome!'})
+                return render(request, 'MiBlogApp/index.html', {'message':f'Welcome {user}!'})
             else:
                 return render(request, 'MiBlogApp/login.html', {'formulario':formulario, 'message':'Invalid username or password, try again'})
         else:
@@ -69,7 +78,39 @@ def editProfile(request):
             user.set_password(informacion['password2'])
             user.save()
 
-            return render(request, 'MiBlogApp/index.html', {'user':user, 'mensaje':'PERFIL EDITADO EXITOSAMENTE'})
+            return render(request, 'MiBlogApp/index.html', {'message':f'{user.username} was successfully updated!'})
     else:
         formulario=UserEditForm(instance=user)
     return render(request, 'MiBlogApp/edit_profile.html', {'formulario':formulario, 'user':user.username})
+
+
+#Pages Views ---------------------------------------------------------------
+
+#Create Page
+class CreatePage(CreateView):
+    model = Pages
+    fields = ['user', 'author', 'title', 'subtitle', 'body', 'image']
+    success_url = reverse_lazy('view_pages')
+
+#View list of Pages
+class ViewPages(LoginRequiredMixin, ListView):
+    model = Pages
+    template_name = 'MiBlogApp/view_pages.html'
+
+#View detail of Pages
+class DetailPage(LoginRequiredMixin, DetailView):
+    model = Pages
+    template_name = 'MiBlogApp/detail_page.html'
+
+#Edit Page
+class EditPage(UpdateView):
+    model = Pages
+    fields = ['author', 'title', 'subtitle', 'body', 'image']
+    success_url = reverse_lazy('view_pages')
+
+#Delete Page
+class DeletePage(DeleteView):
+    model = Pages
+    fields = ['author', 'title', 'subtitle', 'body', 'image']
+    success_url = reverse_lazy('view_pages')
+    

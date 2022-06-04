@@ -1,0 +1,26 @@
+{% extends "MiBlogApp/father.html" %}
+
+{% load static %}
+
+{% block contentToChange %}
+
+<p>Author: <i>{{pages.author}}</i></p>
+<p>Title: <i>{{pages.title}}</i></p>
+<p>Subtitle: <i>{{pages.subtitle}}</i></p>
+<p>Body: <i>{{pages.body}}</i></p>
+<p>Created at: <i>{{pages.created_at}}</i></p>
+<p>Updated at: <i>{{pages.updated_at}}</i></p>
+<img src="{% static 'images/' %}{{pages.image}}" alt="">
+
+
+<p>
+    <a class="btn btn-success" href="{% url 'view_pages' %}"> Go Back to pages list </a>
+    
+</p>
+{% endblock %}
+
+{% block title %}
+
+<h1> Page Details </h1>
+
+{% endblock %}

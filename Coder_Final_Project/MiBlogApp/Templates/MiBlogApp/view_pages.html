@@ -1,0 +1,33 @@
+{% extends "MiBlogApp/father.html" %}
+
+{% load static %}
+
+{% block contentToChange %}
+
+{% for page in object_list %}
+
+<li> {{page}} </li>
+
+<button>
+    <a href="{% url 'detail_page' page.id %}">Detail</a>
+</button>
+<button>
+    <a href="{% url 'edit_page' page.id %}">Edit</a>
+</button>
+<button>
+    <a href="{% url 'delete_page' page.id %}">Delete</a>
+</button>
+
+{% empty %}
+
+<h1> There are 0 pages listed in the blog </h1>
+
+{% endfor %}
+
+<a class="btn btn-success" href="{% url 'create_page' %}"> Create new page </a>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}

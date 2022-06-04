@@ -2,16 +2,24 @@
 
 {% load static %}
 
+
 {% block contentToChange %}
 
 {% endblock %}
 
+
 {% block title %}
 
-<h1 > {{user}} </h1>
+{% if not request.user.is_authenticated %}
+                
+<h1> {{message}}</h1>   
 
-<h1> {{message}}</h1>
+{% else %}
+
+<h1 > {{message}} </h1>
 
 <img src="{{url}}" alt=""/>
 
+ {% endif %}
+    
 {% endblock %}

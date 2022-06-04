@@ -1,0 +1,17 @@
+{% extends "MiBlogApp/father.html" %}
+
+{% load static %}
+
+{% block contentToChange %}
+
+<form method="post">{% csrf_token %}
+    Are you sure you want to delete the following page: "{{ object }}"?
+    <input type="submit" value="Yes">
+
+</form>
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}

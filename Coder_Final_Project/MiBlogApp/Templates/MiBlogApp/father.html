@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title> Inicio </title>
+        <title> Home </title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -22,11 +22,10 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href=""> Inicio </a>
-                <a class="btn btn-success" href="">About</a>
-                <a class="btn btn-success" href="">Pages</a>
-                <a class="btn btn-success" href="">Message</a>
-                <a class="btn btn-success" href="{% url 'editProfile' %}">My Profile</a>
+                <h1> Agus Blog </h1>
+                <a class="navbar-brand" href="{% url 'home' %}"> Home </a>
+                <a class="btn btn-success" href="{% url 'about' %}">About</a>
+                <a class="btn btn-success" href="{% url 'view_pages' %}">Pages</a>
 
                 {% if not request.user.is_authenticated %}
                 
@@ -34,8 +33,10 @@
 
                 {% else %}
 
-                <p class="text-muted small">Hello {{user}}!</p>
-                
+                <a class="btn btn-success" href="">Message</a>
+                <a class="btn btn-success" href="{% url 'editProfile' %}">My Profile</a>
+
+                <p class="text-muted medium">Hello {{user}}!</p>
 
                 <a class="btn btn-danger" href="{% url 'logout' %}">Log Out</a>
 
@@ -51,6 +52,16 @@
                         <div class="text-center text-white">
                             <!-- Page heading-->
                             {% block title %}
+
+                            {% if not request.user.is_authenticated %}
+
+                            <h1> Welcome to my blog! </h1>
+
+                            <a class="btn btn-secondary " href="{% url 'register' %}">Sign Up</a>
+
+                            {% else %}
+
+                            {% endif %}
 
                             {% endblock %}
                         </div>
